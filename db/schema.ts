@@ -1,4 +1,13 @@
-import { pgTable, serial, text, timestamp, boolean, jsonb, integer } from 'drizzle-orm/pg-core';
+import { pgTable, serial, text, timestamp, boolean, jsonb, integer, customType } from 'drizzle-orm/pg-core';
+
+const bytea = customType<{ data: Buffer; driverData: string }>({
+  dataType() {
+    return 'bytea';
+  },
+  toDriver(value: Buffer): string {
+    return value.toString('hex');
+  },
+});
 
 export const aiProviders = pgTable('ai_providers', {
   id: serial('id').primaryKey(),
@@ -55,11 +64,22 @@ export const ragDocuments = pgTable('rag_documents', {
   originalName: text('original_name').notNull(),
   mimeType: text('mime_type').notNull(),
   fileSize: integer('file_size'),
+  fileData: bytea('file_data'),
   extractedText: text('extracted_text'),
   chunkCount: integer('chunk_count').default(0),
   indexed: boolean('indexed').default(false),
   includedInRag: boolean('included_in_rag').default(true).notNull(),
   uploadedAt: timestamp('uploaded_at').defaultNow(),
+});
+
+export const chatFiles = pgTable('chat_files', {
+  id: serial('id').primaryKey(),
+  filename: text('filename').notNull(),
+  originalName: text('original_name').notNull(),
+  fileSize: integer('file_size'),
+  mimeType: text('mime_type').notNull(),
+  fileData: bytea('file_data').notNull(),
+  createdAt: timestamp('created_at').defaultNow(),
 });
 
 export const queryLogs = pgTable('query_logs', {

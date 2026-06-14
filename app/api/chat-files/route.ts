@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import path from 'path';
-import fs from 'fs/promises';
-
-const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+import { db } from '@/db';
+import { chatFiles } from '@/db/schema';
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,20 +11,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file' }, { status: 400 });
     }
 
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
-
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const filename = `chat_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-    const filePath = path.join(UPLOAD_DIR, filename);
-    await fs.writeFile(filePath, buffer);
+
+    const rows = await db.insert(chatFiles).values({
+      filename,
+      originalName: file.name,
+      fileSize: file.size,
+      mimeType: file.type || 'application/octet-stream',
+      fileData: buffer,
+    }).returning({ id: chatFiles.id });
 
     return NextResponse.json({
       success: true,
       filename,
       originalName: file.name,
       size: file.size,
-      url: `/api/chat-files/${filename}`,
+      url: `/api/chat-files/${rows[0].id}`,
     });
   } catch (error) {
     console.error('Chat file upload error:', error);

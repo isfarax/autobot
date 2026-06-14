@@ -12,9 +12,9 @@ import { addDocuments } from './vector-store';
 import { processDocument } from './document-processor';
 import type { Metadata } from 'chromadb';
 
-export async function indexDocument(filePath: string, mimeType: string, docId: string, originalName: string, category: 'text' | 'audio' | 'video' | 'image' = 'text') {
+export async function indexDocument(buffer: Buffer, mimeType: string, docId: string, originalName: string, category: 'text' | 'audio' | 'video' | 'image' = 'text') {
   const config = await getConfig();
-  const processed = await processDocument(filePath, mimeType, originalName, category);
+  const processed = await processDocument(buffer, mimeType, originalName, category);
 
   try {
     await db.insert(documentsTable).values({

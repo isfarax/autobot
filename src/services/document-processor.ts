@@ -1,6 +1,3 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 export interface ProcessedDocument {
   text: string;
   metadata: {
@@ -27,29 +24,26 @@ export async function processTxt(buffer: Buffer, filename: string = ''): Promise
 }
 
 export async function processMediaFile(
-  filePath: string,
+  bufferSize: number,
   category: 'audio' | 'video' | 'image',
   originalName: string,
 ): Promise<ProcessedDocument> {
-  const stats = await fs.stat(filePath);
-  const ext = path.extname(originalName).toLowerCase();
-  const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
+  const ext = originalName.split('.').pop()?.toLowerCase() || '';
+  const sizeMB = (bufferSize / (1024 * 1024)).toFixed(2);
 
-  const text = `File: ${originalName}\nType: ${category}\nFormat: ${ext.slice(1).toUpperCase()}\nSize: ${sizeMB} MB\n\nNote: This is a ${category} file. Text extraction is not supported for ${category} files. To make this content searchable, provide a text description or transcript.`;
+  const text = `File: ${originalName}\nType: ${category}\nFormat: ${ext.toUpperCase()}\nSize: ${sizeMB} MB\n\nNote: This is a ${category} file. Text extraction is not supported for ${category} files. To make this content searchable, provide a text description or transcript.`;
 
   return { text, metadata: { filename: originalName } };
 }
 
 export async function processDocument(
-  filePath: string,
+  buffer: Buffer,
   mimeType: string,
   originalName: string = '',
   category: 'text' | 'audio' | 'video' | 'image' = 'text',
 ): Promise<ProcessedDocument> {
-  const buffer = await fs.readFile(filePath);
-
   if (category === 'audio' || category === 'video' || category === 'image') {
-    return processMediaFile(filePath, category, originalName);
+    return processMediaFile(buffer.length, category, originalName);
   }
 
   if (mimeType.includes('pdf')) {

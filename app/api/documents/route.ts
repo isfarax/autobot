@@ -3,11 +3,8 @@ import { indexDocument } from '@/src/services/chat';
 import { db } from '@/db';
 import { ragDocuments } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import path from 'path';
-import fs from 'fs/promises';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
-const MAX_SIZE = 100 * 1024 * 1024;
+const MAX_SIZE = 10 * 1024 * 1024;
 
 const TEXT_EXTENSIONS = /\.(pdf|docx|txt|md|csv|html|xml|json|log|yaml|yml|ts|tsx|js|jsx|py|java|c|cpp|h|hpp|rb|go|rs|php|css|scss|sql|sh|bat|ps1|mdx|rst|tex|conf|cfg|ini|toml)$/i;
 const AUDIO_EXTENSIONS = /\.(mp3|wav|ogg|flac|aac|m4a|wma|opus)$/i;
@@ -61,19 +58,16 @@ export async function POST(req: NextRequest) {
     }
 
     if (file.size > MAX_SIZE) {
-      return NextResponse.json({ error: 'File too large (max 100MB)' }, { status: 400 });
+      return NextResponse.json({ error: 'File too large (max 10MB)' }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    await fs.mkdir(UPLOAD_DIR, { recursive: true });
 
     const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-    const filePath = path.join(UPLOAD_DIR, filename);
-    await fs.writeFile(filePath, buffer);
-
     const mimeType = getMimeType(file.name, file.type);
-    const indexResult = await indexDocument(filePath, mimeType, filename, file.name, category);
+
+    const indexResult = await indexDocument(buffer, mimeType, filename, file.name, category);
 
     return NextResponse.json({
       success: true,
@@ -110,9 +104,6 @@ export async function DELETE(req: NextRequest) {
     const docId = parseInt(id, 10);
     const rows = await db.select().from(ragDocuments).where(eq(ragDocuments.id, docId));
     if (!rows[0]) return NextResponse.json({ error: 'Document not found' }, { status: 404 });
-
-    const storedPath = path.join(UPLOAD_DIR, rows[0].filename);
-    try { await fs.unlink(storedPath); } catch { /* file may not exist */ }
 
     await db.delete(ragDocuments).where(eq(ragDocuments.id, docId));
     return NextResponse.json({ success: true });
