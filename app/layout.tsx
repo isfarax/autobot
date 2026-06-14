@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
+import { LocaleProvider } from '@/components/locale-provider';
 import { JetBrains_Mono, Geist } from "next/font/google";
 import { cn } from "@/src/lib/utils";
 
@@ -21,12 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn("dark", "font-mono", jetbrainsMono.variable, geistHeading.variable)} suppressHydrationWarning>
+    <html lang="so" className={cn("dark", "font-mono", jetbrainsMono.variable, geistHeading.variable)} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col bg-background text-foreground font-sans antialiased">
         <ThemeProvider>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <LocaleProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

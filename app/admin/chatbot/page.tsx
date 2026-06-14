@@ -2,17 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { Save, Sliders, Scissors, Layers, List, Thermometer, FileStack, RefreshCw } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const fields = [
-  { key: 'chunkSize', label: 'Chunk Size', icon: Scissors },
-  { key: 'chunkOverlap', label: 'Chunk Overlap', icon: Layers },
-  { key: 'topK', label: 'Top K', icon: List },
-  { key: 'temperature', label: 'Temperature', icon: Thermometer },
-  { key: 'maxTokens', label: 'Max Tokens', icon: FileStack },
+  { key: 'chunkSize', labelKey: 'adminChatbot.fields.chunkSize', icon: Scissors },
+  { key: 'chunkOverlap', labelKey: 'adminChatbot.fields.chunkOverlap', icon: Layers },
+  { key: 'topK', labelKey: 'adminChatbot.fields.topK', icon: List },
+  { key: 'temperature', labelKey: 'adminChatbot.fields.temperature', icon: Thermometer },
+  { key: 'maxTokens', labelKey: 'adminChatbot.fields.maxTokens', icon: FileStack },
 ] as const;
 
 type Config = {
@@ -24,6 +25,7 @@ type Config = {
 };
 
 export default function ChatbotConfigPage() {
+  const { t } = useLocale();
   const [config, setConfig] = useState<Config | null>(null);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -33,7 +35,7 @@ export default function ChatbotConfigPage() {
     fetch('/api/admin/chatbot')
       .then((r) => r.json())
       .then((data) => { setConfig(data); setLoading(false); })
-      .catch(() => { setError('Failed to load config'); setLoading(false); });
+      .catch(() => { setError(t('adminChatbot.loadError')); setLoading(false); });
   }, []);
 
   async function handleSave() {
@@ -49,7 +51,7 @@ export default function ChatbotConfigPage() {
 
   if (loading) return (
     <div className="flex min-h-[400px] items-center justify-center gap-2 text-muted-foreground">
-      <RefreshCw className="h-5 w-5 animate-spin" /> Loading...
+      <RefreshCw className="h-5 w-5 animate-spin" /> {t('common.loading')}
     </div>
   );
   if (error) return (
@@ -63,14 +65,14 @@ export default function ChatbotConfigPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">RAG Settings</h1>
-          <p className="mt-2 text-muted-foreground">Configure chunking and retrieval parameters.</p>
+          <h1 className="text-3xl font-bold text-foreground">{t('adminChatbot.title')}</h1>
+          <p className="mt-2 text-muted-foreground">{t('adminChatbot.subtitle')}</p>
         </div>
         <div className="flex items-center gap-2">
           <Button onClick={handleSave}>
-            <Save className="mr-2 h-4 w-4" /> Save Settings
+            <Save className="mr-2 h-4 w-4" /> {t('adminChatbot.save')}
           </Button>
-          {saved && <span className="text-sm text-primary">Saved!</span>}
+          {saved && <span className="text-sm text-primary">{t('adminChatbot.saved')}</span>}
         </div>
       </div>
 
@@ -78,16 +80,16 @@ export default function ChatbotConfigPage() {
         <CardHeader>
           <div className="flex items-center gap-2">
             <Sliders className="h-5 w-5 text-primary" />
-            <CardTitle>Chunking & Retrieval</CardTitle>
+            <CardTitle>{t('adminChatbot.section')}</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-5">
-            {fields.map(({ key, label, icon: Icon }) => (
+            {fields.map(({ key, labelKey, icon: Icon }) => (
               <div key={key} className="space-y-1">
                 <Label className="flex items-center gap-1.5">
                   <Icon className="h-3.5 w-3.5 text-muted-foreground" />
-                  {label}
+                  {t(labelKey)}
                 </Label>
                 <Input
                   type="number"

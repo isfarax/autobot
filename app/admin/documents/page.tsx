@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useLocale } from '@/components/locale-provider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Trash2, FileText, Image, Video, AudioLines } from 'lucide-react';
@@ -27,6 +28,7 @@ function getFileIcon(mimeType: string | undefined | null) {
 }
 
 export default function AdminDocumentsPage() {
+  const { t } = useLocale();
   const [uploading, setUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [files, setFiles] = useState<FileItem[]>([]);
@@ -58,17 +60,22 @@ export default function AdminDocumentsPage() {
       const data = await res.json();
 
       if (data.success) {
-        const indexed = data.indexed ? 'Vector indexed' : 'Text stored (keyword search)';
+        const indexed = data.indexed ? t('adminDocuments.vectorIndexed') : t('adminDocuments.textStored');
         setUploadResult({
-          message: `Uploaded "${data.filename}" (${(data.size / 1024).toFixed(1)} KB) - ${data.chunkCount} chunks - ${indexed}`,
+          message: t('adminDocuments.uploadSuccess', {
+            filename: data.filename,
+            size: (data.size / 1024).toFixed(1),
+            chunks: data.chunkCount,
+            indexed,
+          }),
           type: 'success',
         });
       } else {
-        setUploadResult({ message: `Error: ${data.error}`, type: 'error' });
+        setUploadResult({ message: t('adminDocuments.uploadError', { error: data.error }), type: 'error' });
       }
       await loadFiles();
     } catch {
-      setUploadResult({ message: 'Upload failed', type: 'error' });
+      setUploadResult({ message: t('adminDocuments.uploadFailed'), type: 'error' });
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = '';
@@ -76,7 +83,7 @@ export default function AdminDocumentsPage() {
   }
 
   async function handleDelete(id: number) {
-    if (!confirm('Delete this file?')) return;
+    if (!confirm(t('adminDocuments.confirmDelete'))) return;
     await fetch(`/api/documents?id=${id}`, { method: 'DELETE' });
     await loadFiles();
   }
@@ -98,21 +105,21 @@ export default function AdminDocumentsPage() {
   }
 
   function formatDate(dateStr: string | null): string {
-    if (!dateStr) return 'Unknown';
+    if (!dateStr) return t('adminDocuments.unknownDate');
     const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return 'Unknown';
+    if (isNaN(d.getTime())) return t('adminDocuments.unknownDate');
     return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-foreground">Documents</h1>
-        <p className="mt-2 text-muted-foreground">Upload and manage files for RAG. Toggle inclusion in the knowledge base.</p>
+        <h1 className="text-3xl font-bold text-foreground">{t('adminDocuments.title')}</h1>
+        <p className="mt-2 text-muted-foreground">{t('adminDocuments.subtitle')}</p>
       </div>
 
       <Card className="mb-6">
-        <CardHeader><CardTitle>Upload File</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t('adminDocuments.uploadCard')}</CardTitle></CardHeader>
         <CardContent>
           <form onSubmit={handleUpload} className="flex items-end gap-4">
             <div className="flex-1">
@@ -124,7 +131,7 @@ export default function AdminDocumentsPage() {
               />
             </div>
             <Button type="submit" disabled={uploading}>
-              {uploading ? 'Processing...' : 'Upload & Index'}
+              {uploading ? t('adminDocuments.processing') : t('adminDocuments.uploadBtn')}
             </Button>
           </form>
           {uploadResult && (
@@ -136,10 +143,10 @@ export default function AdminDocumentsPage() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>Uploaded Files ({files.length})</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t('adminDocuments.uploadedFiles', { count: files.length })}</CardTitle></CardHeader>
         <CardContent>
           {files.length === 0 ? (
-            <p className="text-muted-foreground">No files uploaded yet.</p>
+            <p className="text-muted-foreground">{t('adminDocuments.noFiles')}</p>
           ) : (
             <div className="divide-y divide-border">
               {files.map((f) => (
@@ -161,10 +168,10 @@ export default function AdminDocumentsPage() {
                       size="xs"
                       onClick={() => toggleRag(f.id, f.includedInRag)}
                       className={f.includedInRag ? 'bg-primary/10 text-primary hover:bg-primary/20 border-primary/20' : ''}
-                      title={f.includedInRag ? 'Included in RAG' : 'Excluded from RAG'}
+                      title={f.includedInRag ? t('adminDocuments.includedInRag') : t('adminDocuments.excludedFromRag')}
                     >
                       <CheckCircle className="h-3.5 w-3.5" />
-                      {f.includedInRag ? 'In RAG' : 'Excluded'}
+                      {f.includedInRag ? t('adminDocuments.inRag') : t('adminDocuments.excluded')}
                     </Button>
                     <Button variant="ghost" size="sm" onClick={() => handleDelete(f.id)} className="text-destructive hover:text-destructive/80 hover:bg-destructive/10">
                       <Trash2 className="h-4 w-4" />

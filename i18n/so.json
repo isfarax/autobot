@@ -1,0 +1,310 @@
+{
+  "header": {
+    "nav": {
+      "home": "Guriga",
+      "gettingStarted": "Bilow",
+      "chatbot": "Chatbot-ka",
+      "about": "Ku Saabsan",
+      "admin": "Maamulka"
+    },
+    "brand": "Autobot",
+    "themeToggle": {
+      "dark": "U beddel qaabka iftiinka",
+      "light": "U beddel qaabka mugdiga"
+    },
+    "language": "Luqadda"
+  },
+  "footer": {
+    "copyright": "\u00a9 {year} Autobot Portal-ka Maamulka. Xuquuqda oo dhan waa la dhowray.",
+    "poweredBy": "Waxaa ku shaqeeya Next.js, Payload CMS & AI"
+  },
+  "home": {
+    "welcome": "Ku soo dhawoow",
+    "description": "Portal maamul oo caqli leh oo leh chatbot RAG ku shaqeeya kaasoo ka jawaaba su'aalaha ku salaysan dokumentiyadaada.",
+    "tryChatbot": "Tijaabi Chatbot-ka",
+    "goToAdmin": "Tag Maamulka",
+    "keyFeatures": "Astaamaha Muhiimka ah",
+    "features": {
+      "adminPortal": {
+        "title": "Portal-ka Maamulka",
+        "description": "Maamul dokumentiyada, isticmaalayaasha, iyo dejinta AI-bixiyayaasha dashboard dhexe."
+      },
+      "ragChatbot": {
+        "title": "Chatbot-ka RAG",
+        "description": "Weydii su'aalo oo hel jawaabo ay ku jiraan dokumentiyadaada la soo geliyay iyada oo la adeegsanayo AI."
+      },
+      "documentManagement": {
+        "title": "Maamulka Dokumentiyada",
+        "description": "Soo geli, habe, oo ka shaqee dokumentiyada PDF, DOCX, iyo TXT."
+      }
+    },
+    "learnMore": "Faahfaahin dheeri ah",
+    "getStarted": "Bilaab",
+    "getStartedDesc": "Soo geli dokumentiyadaada iyada oo loo marayo portal-ka maamulka, ka dibna weydii su'aalo chatbot-ka si aad u hesho jawaabo AI ku salaysan oo ku saabsan nuxurkaaga.",
+    "uploadDocuments": "Soo geli Dokumentiyada"
+  },
+  "about": {
+    "title": "Ku Saabsan Autobot",
+    "subtitle": "Faahfaahin dheeri ah oo ku saabsan platform-ka, sida uu u shaqeeyo, iyo tiknoolajiyada ka dambeysa.",
+    "highlights": {
+      "ragPowered": "RAG ku shaqeeya",
+      "ragLabel": "Jawaabo macnaha ku habboon oo dokumentiyadaada ka yimid",
+      "multiFormat": "Noocyo Badan",
+      "multiLabel": "Wuxuu taageeraa PDF, DOCX, iyo TXT",
+      "aiProviders": "AI Bixiyayaal",
+      "aiLabel": "OpenAI, Anthropic, iyo kuwo kale"
+    },
+    "sections": {
+      "whatIs": {
+        "title": "Waa maxay Autobot?",
+        "description": "Autobot waa portal maamul oo caqli leh oo leh chatbot RAG (Retrieval-Augmented Generation). Wuxuu awood u siinayaa maamulayaasha inay soo geliyaan dokumentiyada oo u oggolaado isticmaalayaasha inay ku weydiiyaan su'aalo luuqad dabiici ah, iyada oo ay shaqeynayso AI."
+      },
+      "howItWorks": {
+        "title": "Sida uu u Shaqeeyo",
+        "description": "Dokumentiyada waa la farsameeyaa, waa la jajabiyaa, waxaana la geliyaa kaydka vector-ka. Markaad su'aal weydiiso, nidaamku wuxuu soo saaraa qaybaha dokumentiga ugu habboon oo wuxuu ku abuuraa jawaab macnaha ku habboon isagoo adeegsanaya qaabka AI."
+      },
+      "supportedFormats": {
+        "title": "Noocyada La Taageeray",
+        "items": ["Dokumentiyada PDF", "Faylasha DOCX (Word)", "Faylasha TXT"]
+      },
+      "techStack": {
+        "title": "Tiknoolajiyada La Isticmaalay",
+        "items": ["Next.js 16 & React 19", "Payload CMS 3", "PostgreSQL & Drizzle ORM", "ChromaDB Kaydka Vector-ka", "OpenAI / Anthropic AI"]
+      }
+    }
+  },
+  "gettingStarted": {
+    "title": "Bilow",
+    "subtitle": "Raac tillaabooyinkan si aad u dejiso Autobot oo u bilaabato isticmaalida chatbot-ka RAG ku shaqeeya dokumentiyadaada.",
+    "steps": {
+      "uploadDocuments": {
+        "title": "Soo geli Dokumentiyada",
+        "description": "Soo geli faylasha PDF, DOCX, ama TXT oo uu chatbot-ku isticmaali doono sida saldhiga aqoonta.",
+        "details": [
+          "Noocyada la taageeray: PDF, DOCX, TXT",
+          "Dokumentiyada si otomaatig ah ayaa loo farsameeyaa oo loo geliyaa",
+          "Maamul faylasha la soo geliyay dashboard-ka dokumentiyada"
+        ],
+        "action": "Tag Dokumentiyada"
+      },
+      "configureProviders": {
+        "title": "Deji AI Bixiyayaasha",
+        "description": "Ku xir AI-bixiyahaaga (OpenAI, Anthropic, iwm.) oo dooro moodooyinka.",
+        "details": [
+          "Kudar furayaasha API ee OpenAI, Anthropic, ama bixiyayaasha kale",
+          "Dooro moodooyinka caadiga ah ee sheekada iyo la gelinta",
+          "Tijaabi xidhiidhka bixiyahaaga"
+        ],
+        "action": "Deji Bixiyayaasha"
+      },
+      "createPrompts": {
+        "title": "Abuur Tilmaamaha Wakiilka",
+        "description": "Qor faylasha agent.md tilmaameed si aad u xakameyso hab-dhaqanka chatbot-ka.",
+        "details": [
+          "Qeeb shakhsiyadda chatbot-ka iyo tilmaamaha",
+          "Deji hagayaasha jawaabta iyo xannibaadaha",
+          "Maamul qaabab tilmaameed oo kala duwan goobo isticmaal oo kala duwan"
+        ],
+        "action": "Maamul Tilmaamaha"
+      },
+      "configureChatbot": {
+        "title": "Deji Chatbot-ka",
+        "description": "Dooro dokumentiyada la isticmaali doono, dooro tilmaame wakiil, oo hagaaji dejinta RAG.",
+        "details": [
+          "Dooro dokumentiyada uu chatbot-ku tixraaci karo",
+          "Dooro qaabka tilmaanta wakiilka",
+          "Hagaaji cabbirka qaybta, tirada soo celinta, iyo heerka isku ekaanshaha"
+        ],
+        "action": "Deji Chatbot-ka"
+      }
+    },
+    "readyToChat": "Diyaar ma u tahay inaad sheekeysid?",
+    "readyToChatDesc": "Marka dokumentiyadaada la soo geliyo oo bixiyayaasha la dejiyo, bilaab weydiinta su'aalaha chatbot-ka.",
+    "openChatbot": "Fur Chatbot-ka"
+  },
+  "chat": {
+    "conversations": "Wadahadallada",
+    "noConversations": "Weli wadahadal lama billaabin",
+    "askMeAnything": "I waydii wax kasta",
+    "poweredByDocs": "Waxaa ku shaqeeya dokumentiyadaada iyo AI",
+    "placeholder": "Qor farriintaada...",
+    "noResponse": "Jawaab ma jirto",
+    "errorMessage": "Waan ka xunnahay, wax baa khaldamay.",
+    "timeAgo": {
+      "justNow": "hadda",
+      "seconds": "{s} ilbiriqsi kahor",
+      "minutes": "{m} daqiiqo kahor",
+      "hours": "{h} saacad kahor",
+      "days": "{d} maalin kahor"
+    }
+  },
+  "common": {
+    "loading": "Soo dejinayaa...",
+    "saving": "Kaydinayaa...",
+    "save": "Kaydi",
+    "cancel": "Jooji",
+    "delete": "Tirtir",
+    "edit": "Tafatir",
+    "create": "Abuur",
+    "preview": "Horfiiri",
+    "name": "Magaca",
+    "description": "Sharaxaad",
+    "content": "Nuxurka",
+    "add": "Kudar",
+    "remove": "Ka saar",
+    "saved": "Waa la kaydiyay!",
+    "confirm": "Xaqiiji",
+    "reset": "Dib u dej",
+    "yes": "Haa",
+    "no": "Maya",
+    "error": "Khalad",
+    "success": "Guul",
+    "active": "Firfircoon"
+  },
+  "admin": {
+    "title": "Portal-ka Maamulka",
+    "subtitle": "Maamul dokumentiyadaada, AI-bixiyayaasha, tilmaamaha wakiilka, iyo dejinta chatbot-ka.",
+    "cards": {
+      "documents": {
+        "title": "Dokumentiyada",
+        "description": "Soo geli, fiiri, oo maamul dokumentiyada RAG",
+        "action": "Maamul dokumentiyada"
+      },
+      "aiProviders": {
+        "title": "AI Bixiyayaasha",
+        "description": "Deji AI-bixiyayaasha iyo moodooyinka",
+        "action": "Deji"
+      },
+      "agentPrompts": {
+        "title": "Tilmaamaha Wakiilka",
+        "description": "Abuur oo maamul faylasha tilmaanta agent.md",
+        "action": "Maamul tilmaamaha"
+      },
+      "chatbotConfig": {
+        "title": "Dejinta Chatbot-ka",
+        "description": "Deji dejinta RAG, dooro dokumentiyada, tilmaamaha wakiilka",
+        "action": "Deji"
+      }
+    },
+    "systemStatus": {
+      "title": "Heerka Nidaamka",
+      "description": "Dulmar guud oo ku saabsan nidaamkaaga",
+      "database": "Kaydka Xogta",
+      "connected": "Ku xiran",
+      "documents": "Dokumentiyada",
+      "files": "faylal",
+      "aiProviders": "AI Bixiyayaasha",
+      "configured": "waa la dejiyay"
+    },
+    "openChatbot": "Fur Chatbot-ka",
+    "graphQL": "GraphQL Playground",
+    "reset": {
+      "title": "Dib u dejinta",
+      "description": "Dooro qaybaha dib loo dejinayo. Ficilkan dib looma noqon karo.",
+      "selectAll": "Dooro Dhammaan",
+      "typeToConfirm": "Qor {key} si aad u xaqiijiso",
+      "resetBtn": "Dib u dej kuwa la doortay ({count})",
+      "resetting": "Dib u dejinayaa...",
+      "complete": "Dib u dejinta waa dhammaatay: {summary}",
+      "failedToConnect": "Kug xiridda server-ka waa fashilantay",
+      "categories": {
+        "documents": {
+          "label": "Dokumentiyada",
+          "desc": "Wuxuu tirtiraa dhammaan dokumentiyada iyo faylasha la soo geliyay"
+        },
+        "providers": {
+          "label": "AI Bixiyayaasha",
+          "desc": "Wuxuu ka saaraa dhammaan AI-bixiyayaasha la dejiyay"
+        },
+        "prompts": {
+          "label": "Tilmaamaha Wakiilka",
+          "desc": "Wuxuu tirtiraa dhammaan faylasha tilmaanta agent.md"
+        },
+        "chatbot": {
+          "label": "Dejinta Chatbot-ka",
+          "desc": "Wuxuu dib u celiyaa dejinta RAG sida caadiga ah"
+        }
+      }
+    }
+  },
+  "adminSettings": {
+    "title": "AI Bixiyayaasha",
+    "subtitle": "Deji AI-bixiyayaal kala duwan iyo moodooyin.",
+    "addProvider": "Kudar Bixiye",
+    "setActive": "Ka dhig mid firfircoon",
+    "remove": "Ka saar",
+    "baseUrl": "URL-ka saldhiga:",
+    "model": "Moodeelka:",
+    "apiKey": "Furaha API:",
+    "notSet": "Lama dejin",
+    "noProviders": "Ma jiraan bixiyayaal la dejiyay. Guji \"Kudar Bixiye\" si aad u bilowdo.",
+    "addForm": {
+      "title": "Kudar Bixiye",
+      "subtitle": "Dooro mid horay loo dejiyay ama ku habe gacanta.",
+      "preset": "Mid Horay loo Dejiyay",
+      "label": "Magaca",
+      "placeholder": "My OpenAI",
+      "baseUrl": "URL-ka saldhiga",
+      "model": "Moodeelka",
+      "apiKey": "Furaha API",
+      "apiKeyPlaceholder": "sk-...",
+      "optional": "ikhtiyaar",
+      "add": "Kudar",
+      "cancel": "Jooji"
+    }
+  },
+  "adminPrompts": {
+    "title": "Tilmaamaha Wakiilka",
+    "subtitle": "Maamul tilmaamaha nidaamka / faylasha agent.md ee chatbot-ka.",
+    "createNew": "Abuur Tilmaan Cusub",
+    "name": "Magaca",
+    "namePlaceholder": "tusaale: wakiilka-taakulaynta-macmiilka",
+    "description": "Sharaxaad",
+    "descPlaceholder": "Sharaxaad ikhtiyaari ah",
+    "promptContent": "Nuxurka Tilmaanta",
+    "contentDesc": "Nuxurka Markdown ee tilmaanta wakiilka.",
+    "create": "Abuur",
+    "edit": "Tafatir",
+    "delete": "Tirtir",
+    "save": "Kaydi",
+    "cancel": "Jooji",
+    "editTitle": "Tafatir: {name}",
+    "noPrompts": "Weli tilmaamo lama abuurin.",
+    "nothingToPreview": "Wax horfiiri ah ma jiraan"
+  },
+  "adminChatbot": {
+    "title": "Dejinta RAG",
+    "subtitle": "Deji cabbirka qaybinta iyo xuduudaha soo celinta.",
+    "save": "Kaydi Dejinta",
+    "saved": "Waa la kaydiyay!",
+    "section": "Qaybinta & Soo Celinta",
+    "fields": {
+      "chunkSize": "Cabbirka Qaybta",
+      "chunkOverlap": "Isdhaafka Qaybta",
+      "topK": "Top K",
+      "temperature": "Heerkulka",
+      "maxTokens": "Max Tokens"
+    },
+    "loadError": "Dejintii lama soo gelin"
+  },
+  "adminDocuments": {
+    "title": "Dokumentiyada",
+    "subtitle": "Soo geli oo maamul faylasha RAG. Beddel ku daridda saldhiga aqoonta.",
+    "uploadCard": "Soo geli Fayl",
+    "uploadBtn": "Soo geli & Index",
+    "processing": "Waa la farsameynayaa...",
+    "uploadSuccess": "Waa la soo geliyay \"{filename}\" ({size} KB) - {chunks} qaybood - {indexed}",
+    "vectorIndexed": "Vector-ka waa la geliyay",
+    "textStored": "Qoraalka waa la kaydiyay (raadinta erayada)",
+    "uploadError": "Khalad: {error}",
+    "uploadFailed": "Soo gelintii waa fashilantay",
+    "uploadedFiles": "Faylasha La Soo Geliyay ({count})",
+    "noFiles": "Weli faylal lama soo gelin.",
+    "inRag": "RAG gudahiisa",
+    "excluded": "Ka baxsan",
+    "includedInRag": "RAG gudahiisa ku jira",
+    "excludedFromRag": "RAG ka baxsan",
+    "confirmDelete": "Ma tirtiraa faylkan?",
+    "unknownDate": "Lama yaqaan"
+  }
+}

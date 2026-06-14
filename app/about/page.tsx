@@ -1,56 +1,31 @@
+'use client';
+
 import { Bot, BrainCircuit, FileType, Layers, Sparkles, MessagesSquare } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-const sections = [
-  {
-    icon: Bot,
-    title: 'What is Autobot?',
-    description:
-      'Autobot is an intelligent admin portal with a Retrieval-Augmented Generation (RAG) chatbot. It empowers administrators to upload documents and lets users query them using natural language, powered by AI.',
-  },
-  {
-    icon: BrainCircuit,
-    title: 'How it Works',
-    description:
-      'Documents are processed, chunked, and embedded into a vector database. When you ask a question, the system retrieves the most relevant document chunks and generates a contextual answer using an AI model.',
-  },
-  {
-    icon: FileType,
-    title: 'Supported Formats',
-    items: ['PDF documents', 'DOCX (Word) files', 'TXT text files'],
-  },
-  {
-    icon: Layers,
-    title: 'Technology Stack',
-    items: ['Next.js 16 & React 19', 'Payload CMS 3', 'PostgreSQL & Drizzle ORM', 'ChromaDB Vector Store', 'OpenAI / Anthropic AI'],
-  },
-];
-
-const highlights = [
-  {
-    icon: Sparkles,
-    value: 'RAG-Powered',
-    label: 'Context-aware answers from your documents',
-  },
-  {
-    icon: MessagesSquare,
-    value: 'Multi-Format',
-    label: 'Supports PDF, DOCX, and TXT files',
-  },
-  {
-    icon: Bot,
-    value: 'AI Providers',
-    label: 'OpenAI, Anthropic, and more',
-  },
-];
-
 export default function AboutPage() {
+  const { t } = useLocale();
+
+  const highlights = [
+    { icon: Sparkles, valueKey: 'about.highlights.ragPowered', labelKey: 'about.highlights.ragLabel' },
+    { icon: MessagesSquare, valueKey: 'about.highlights.multiFormat', labelKey: 'about.highlights.multiLabel' },
+    { icon: Bot, valueKey: 'about.highlights.aiProviders', labelKey: 'about.highlights.aiLabel' },
+  ];
+
+  const sections = [
+    { icon: Bot, titleKey: 'about.sections.whatIs.title', descriptionKey: 'about.sections.whatIs.description' },
+    { icon: BrainCircuit, titleKey: 'about.sections.howItWorks.title', descriptionKey: 'about.sections.howItWorks.description' },
+    { icon: FileType, titleKey: 'about.sections.supportedFormats.title', itemsKey: 'about.sections.supportedFormats.items' },
+    { icon: Layers, titleKey: 'about.sections.techStack.title', itemsKey: 'about.sections.techStack.items' },
+  ];
+
   return (
     <div className="container mx-auto px-4 py-12">
       <section className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground">About Autobot</h1>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground">{t('about.title')}</h1>
         <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-          Learn more about the platform, how it works, and the technology behind it.
+          {t('about.subtitle')}
         </p>
       </section>
 
@@ -58,13 +33,13 @@ export default function AboutPage() {
         {highlights.map((h) => {
           const Icon = h.icon;
           return (
-            <Card key={h.value} className="text-center">
+            <Card key={h.valueKey} className="text-center">
               <CardHeader>
                 <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
                   <Icon className="h-6 w-6 text-primary" />
                 </div>
-                <CardTitle className="text-lg">{h.value}</CardTitle>
-                <CardDescription>{h.label}</CardDescription>
+                <CardTitle className="text-lg">{t(h.valueKey)}</CardTitle>
+                <CardDescription>{t(h.labelKey)}</CardDescription>
               </CardHeader>
             </Card>
           );
@@ -75,23 +50,23 @@ export default function AboutPage() {
         {sections.map((s) => {
           const Icon = s.icon;
           return (
-            <Card key={s.title}>
+            <Card key={s.titleKey}>
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                     <Icon className="h-5 w-5 text-primary" />
                   </span>
-                  <CardTitle>{s.title}</CardTitle>
+                  <CardTitle>{t(s.titleKey)}</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
-                {s.description && (
-                  <p className="text-muted-foreground">{s.description}</p>
+                {s.descriptionKey && (
+                  <p className="text-muted-foreground">{t(s.descriptionKey)}</p>
                 )}
-                {s.items && (
+                {s.itemsKey && (
                   <ul className="list-disc pl-5 text-muted-foreground space-y-1">
-                    {s.items.map((item) => (
-                      <li key={item}>{item}</li>
+                    {(t(s.itemsKey) as string).split(',').map((item: string) => (
+                      <li key={item}>{item.trim()}</li>
                     ))}
                   </ul>
                 )}

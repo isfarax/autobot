@@ -1,0 +1,310 @@
+{
+  "header": {
+    "nav": {
+      "home": "Home",
+      "gettingStarted": "Getting Started",
+      "chatbot": "Chatbot",
+      "about": "About",
+      "admin": "Admin"
+    },
+    "brand": "Autobot",
+    "themeToggle": {
+      "dark": "Switch to light mode",
+      "light": "Switch to dark mode"
+    },
+    "language": "Language"
+  },
+  "footer": {
+    "copyright": "\u00a9 {year} Autobot Admin Portal. All rights reserved.",
+    "poweredBy": "Powered by Next.js, Payload CMS & AI"
+  },
+  "home": {
+    "welcome": "Welcome to",
+    "description": "An intelligent admin portal with a RAG-powered chatbot that answers questions based on your documents.",
+    "tryChatbot": "Try the Chatbot",
+    "goToAdmin": "Go to Admin",
+    "keyFeatures": "Key Features",
+    "features": {
+      "adminPortal": {
+        "title": "Admin Portal",
+        "description": "Manage documents, users, and AI provider settings from a centralized dashboard."
+      },
+      "ragChatbot": {
+        "title": "RAG Chatbot",
+        "description": "Ask questions and get answers powered by your uploaded documents with AI-driven retrieval."
+      },
+      "documentManagement": {
+        "title": "Document Management",
+        "description": "Upload, organize, and process documents in PDF, DOCX, and TXT formats."
+      }
+    },
+    "learnMore": "Learn more",
+    "getStarted": "Get Started",
+    "getStartedDesc": "Upload your documents through the admin portal, then ask questions via the chatbot to get AI-powered answers based on your content.",
+    "uploadDocuments": "Upload Documents"
+  },
+  "about": {
+    "title": "About Autobot",
+    "subtitle": "Learn more about the platform, how it works, and the technology behind it.",
+    "highlights": {
+      "ragPowered": "RAG-Powered",
+      "ragLabel": "Context-aware answers from your documents",
+      "multiFormat": "Multi-Format",
+      "multiLabel": "Supports PDF, DOCX, and TXT files",
+      "aiProviders": "AI Providers",
+      "aiLabel": "OpenAI, Anthropic, and more"
+    },
+    "sections": {
+      "whatIs": {
+        "title": "What is Autobot?",
+        "description": "Autobot is an intelligent admin portal with a Retrieval-Augmented Generation (RAG) chatbot. It empowers administrators to upload documents and lets users query them using natural language, powered by AI."
+      },
+      "howItWorks": {
+        "title": "How it Works",
+        "description": "Documents are processed, chunked, and embedded into a vector database. When you ask a question, the system retrieves the most relevant document chunks and generates a contextual answer using an AI model."
+      },
+      "supportedFormats": {
+        "title": "Supported Formats",
+        "items": ["PDF documents", "DOCX (Word) files", "TXT text files"]
+      },
+      "techStack": {
+        "title": "Technology Stack",
+        "items": ["Next.js 16 & React 19", "Payload CMS 3", "PostgreSQL & Drizzle ORM", "ChromaDB Vector Store", "OpenAI / Anthropic AI"]
+      }
+    }
+  },
+  "gettingStarted": {
+    "title": "Getting Started",
+    "subtitle": "Follow these steps to set up Autobot and start using the RAG-powered chatbot with your own documents.",
+    "steps": {
+      "uploadDocuments": {
+        "title": "Upload Documents",
+        "description": "Upload PDF, DOCX, or TXT files that the chatbot will use as its knowledge base.",
+        "details": [
+          "Supported formats: PDF, DOCX, TXT",
+          "Documents are automatically processed and embedded",
+          "Manage uploaded files from the document dashboard"
+        ],
+        "action": "Go to Documents"
+      },
+      "configureProviders": {
+        "title": "Configure AI Providers",
+        "description": "Connect your AI provider (OpenAI, Anthropic, etc.) and select models.",
+        "details": [
+          "Add API keys for OpenAI, Anthropic, or other providers",
+          "Select default models for chat and embeddings",
+          "Test your provider connection"
+        ],
+        "action": "Configure Providers"
+      },
+      "createPrompts": {
+        "title": "Create Agent Prompts",
+        "description": "Write custom agent.md prompt files to control chatbot behavior.",
+        "details": [
+          "Define the chatbot personality and instructions",
+          "Set response guidelines and constraints",
+          "Manage multiple prompt templates for different use cases"
+        ],
+        "action": "Manage Prompts"
+      },
+      "configureChatbot": {
+        "title": "Configure Chatbot",
+        "description": "Select which documents to use, choose an agent prompt, and fine-tune RAG settings.",
+        "details": [
+          "Pick the documents the chatbot can reference",
+          "Select an agent prompt template",
+          "Adjust chunk size, retrieval count, and similarity thresholds"
+        ],
+        "action": "Configure Chatbot"
+      }
+    },
+    "readyToChat": "Ready to Chat?",
+    "readyToChatDesc": "Once your documents are uploaded and providers are configured, start asking questions in the chatbot.",
+    "openChatbot": "Open Chatbot"
+  },
+  "chat": {
+    "conversations": "Conversations",
+    "noConversations": "No conversations yet",
+    "askMeAnything": "Ask me anything",
+    "poweredByDocs": "Powered by your documents and AI",
+    "placeholder": "Type your message...",
+    "noResponse": "No response",
+    "errorMessage": "Sorry, something went wrong.",
+    "timeAgo": {
+      "justNow": "just now",
+      "seconds": "{s}s ago",
+      "minutes": "{m}m ago",
+      "hours": "{h}h ago",
+      "days": "{d}d ago"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "preview": "Preview",
+    "name": "Name",
+    "description": "Description",
+    "content": "Content",
+    "add": "Add",
+    "remove": "Remove",
+    "saved": "Saved!",
+    "confirm": "Confirm",
+    "reset": "Reset",
+    "yes": "Yes",
+    "no": "No",
+    "error": "Error",
+    "success": "Success",
+    "active": "Active"
+  },
+  "admin": {
+    "title": "Admin Portal",
+    "subtitle": "Manage your documents, AI providers, agent prompts, and chatbot settings.",
+    "cards": {
+      "documents": {
+        "title": "Documents",
+        "description": "Upload, view, and manage documents for RAG",
+        "action": "Manage documents"
+      },
+      "aiProviders": {
+        "title": "AI Providers",
+        "description": "Configure AI providers and models",
+        "action": "Configure"
+      },
+      "agentPrompts": {
+        "title": "Agent Prompts",
+        "description": "Create and manage agent.md prompt files",
+        "action": "Manage prompts"
+      },
+      "chatbotConfig": {
+        "title": "Chatbot Config",
+        "description": "Configure RAG settings, select documents, agent prompts",
+        "action": "Configure"
+      }
+    },
+    "systemStatus": {
+      "title": "System Status",
+      "description": "Overview of your system",
+      "database": "Database",
+      "connected": "Connected",
+      "documents": "Documents",
+      "files": "files",
+      "aiProviders": "AI Providers",
+      "configured": "configured"
+    },
+    "openChatbot": "Open Chatbot",
+    "graphQL": "GraphQL Playground",
+    "reset": {
+      "title": "Reset",
+      "description": "Select categories to reset. This action cannot be undone.",
+      "selectAll": "Select All",
+      "typeToConfirm": "Type {key} to confirm",
+      "resetBtn": "Reset Selected ({count})",
+      "resetting": "Resetting...",
+      "complete": "Reset complete: {summary}",
+      "failedToConnect": "Failed to connect to server",
+      "categories": {
+        "documents": {
+          "label": "Documents",
+          "desc": "Deletes all documents and their uploaded files from disk"
+        },
+        "providers": {
+          "label": "AI Providers",
+          "desc": "Removes all configured AI providers"
+        },
+        "prompts": {
+          "label": "Agent Prompts",
+          "desc": "Deletes all agent.md prompt files"
+        },
+        "chatbot": {
+          "label": "Chatbot Config",
+          "desc": "Resets RAG settings to defaults"
+        }
+      }
+    }
+  },
+  "adminSettings": {
+    "title": "AI Providers",
+    "subtitle": "Configure multiple AI providers and models.",
+    "addProvider": "Add Provider",
+    "setActive": "Set Active",
+    "remove": "Remove",
+    "baseUrl": "Base URL:",
+    "model": "Model:",
+    "apiKey": "API Key:",
+    "notSet": "Not set",
+    "noProviders": "No providers configured. Click \"Add Provider\" to get started.",
+    "addForm": {
+      "title": "Add Provider",
+      "subtitle": "Select a preset or configure manually.",
+      "preset": "Preset",
+      "label": "Label",
+      "placeholder": "My OpenAI",
+      "baseUrl": "Base URL",
+      "model": "Model",
+      "apiKey": "API Key",
+      "apiKeyPlaceholder": "sk-...",
+      "optional": "optional",
+      "add": "Add",
+      "cancel": "Cancel"
+    }
+  },
+  "adminPrompts": {
+    "title": "Agent Prompts",
+    "subtitle": "Manage system prompts / agent.md files for the chatbot.",
+    "createNew": "Create New Prompt",
+    "name": "Name",
+    "namePlaceholder": "e.g. customer-support-agent",
+    "description": "Description",
+    "descPlaceholder": "Optional description",
+    "promptContent": "Prompt Content",
+    "contentDesc": "Markdown content for the agent prompt.",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "editTitle": "Edit: {name}",
+    "noPrompts": "No prompts yet.",
+    "nothingToPreview": "Nothing to preview"
+  },
+  "adminChatbot": {
+    "title": "RAG Settings",
+    "subtitle": "Configure chunking and retrieval parameters.",
+    "save": "Save Settings",
+    "saved": "Saved!",
+    "section": "Chunking & Retrieval",
+    "fields": {
+      "chunkSize": "Chunk Size",
+      "chunkOverlap": "Chunk Overlap",
+      "topK": "Top K",
+      "temperature": "Temperature",
+      "maxTokens": "Max Tokens"
+    },
+    "loadError": "Failed to load config"
+  },
+  "adminDocuments": {
+    "title": "Documents",
+    "subtitle": "Upload and manage files for RAG. Toggle inclusion in the knowledge base.",
+    "uploadCard": "Upload File",
+    "uploadBtn": "Upload & Index",
+    "processing": "Processing...",
+    "uploadSuccess": "Uploaded \"{filename}\" ({size} KB) - {chunks} chunks - {indexed}",
+    "vectorIndexed": "Vector indexed",
+    "textStored": "Text stored (keyword search)",
+    "uploadError": "Error: {error}",
+    "uploadFailed": "Upload failed",
+    "uploadedFiles": "Uploaded Files ({count})",
+    "noFiles": "No files uploaded yet.",
+    "inRag": "In RAG",
+    "excluded": "Excluded",
+    "includedInRag": "Included in RAG",
+    "excludedFromRag": "Excluded from RAG",
+    "confirmDelete": "Delete this file?",
+    "unknownDate": "Unknown"
+  }
+}

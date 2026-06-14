@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
+import { useLocale } from '@/components/locale-provider';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -25,16 +26,18 @@ type Conversation = {
   updatedAt?: string;
 };
 
-function timeAgo(dateStr: string): string {
+type TFunc = (key: string, values?: Record<string, string | number>) => string;
+
+function timeAgo(dateStr: string, t: TFunc): string {
   const diff = Date.now() - new Date(dateStr).getTime();
   const secs = Math.floor(diff / 1000);
-  if (secs < 5) return 'just now';
-  if (secs < 60) return `${secs}s ago`;
+  if (secs < 5) return t('chat.timeAgo.justNow');
+  if (secs < 60) return t('chat.timeAgo.seconds', { s: secs });
   const mins = Math.floor(secs / 60);
-  if (mins < 60) return `${mins}m ago`;
+  if (mins < 60) return t('chat.timeAgo.minutes', { m: mins });
   const hrs = Math.floor(mins / 60);
-  if (hrs < 24) return `${hrs}h ago`;
-  return `${Math.floor(hrs / 24)}d ago`;
+  if (hrs < 24) return t('chat.timeAgo.hours', { h: hrs });
+  return t('chat.timeAgo.days', { d: Math.floor(hrs / 24) });
 }
 
 function ElapsedTimer({ startTime }: { startTime: number }) {
@@ -64,6 +67,7 @@ function ElapsedTimer({ startTime }: { startTime: number }) {
 }
 
 export default function ChatPage() {
+  const { t } = useLocale();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -76,9 +80,7 @@ export default function ChatPage() {
   const [now, setNow] = useState(Date.now());
 
   useEffect(() => { loadConversations(); }, []);
-
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
-
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 5000);
     return () => clearInterval(id);
@@ -171,7 +173,7 @@ export default function ChatPage() {
       setMessages((prev) => [...prev, {
         id: Date.now() + 1,
         role: 'assistant',
-        content: data.reply || 'No response',
+        content: data.reply || t('chat.noResponse'),
         sources: data.sources,
         createdAt: new Date().toISOString(),
       }]);
@@ -181,7 +183,7 @@ export default function ChatPage() {
       setMessages((prev) => [...prev, {
         id: Date.now() + 1,
         role: 'assistant',
-        content: 'Sorry, something went wrong.',
+        content: t('chat.errorMessage'),
         createdAt: new Date().toISOString(),
       }]);
     } finally {
@@ -193,7 +195,7 @@ export default function ChatPage() {
     <div className="container mx-auto flex h-[calc(100vh-8rem)] gap-4 px-4 py-4">
       <div className="hidden w-64 shrink-0 flex-col md:flex">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-foreground">Conversations</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t('chat.conversations')}</h2>
           <Button variant="ghost" size="sm" onClick={handleNew}>
             <Plus className="h-4 w-4" />
           </Button>
@@ -208,7 +210,7 @@ export default function ChatPage() {
                 }`}
               >
                 <span className="block truncate">{c.title}</span>
-                <span className="block text-xs text-muted-foreground">{timeAgo(c.updatedAt || c.createdAt)}</span>
+                <span className="block text-xs text-muted-foreground">{timeAgo(c.updatedAt || c.createdAt, t)}</span>
               </button>
               <Button
                 variant="ghost"
@@ -221,7 +223,7 @@ export default function ChatPage() {
             </div>
           ))}
           {conversations.length === 0 && (
-            <p className="px-3 text-xs text-muted-foreground">No conversations yet</p>
+            <p className="px-3 text-xs text-muted-foreground">{t('chat.noConversations')}</p>
           )}
         </div>
       </div>
@@ -231,8 +233,8 @@ export default function ChatPage() {
           {messages.length === 0 && (
             <div className="flex h-full items-center justify-center">
               <div className="text-center">
-                <p className="mb-2 text-lg font-medium text-foreground">Ask me anything</p>
-                <p className="text-sm text-muted-foreground">Powered by your documents and AI</p>
+                <p className="mb-2 text-lg font-medium text-foreground">{t('chat.askMeAnything')}</p>
+                <p className="text-sm text-muted-foreground">{t('chat.poweredByDocs')}</p>
               </div>
             </div>
           )}
@@ -270,7 +272,7 @@ export default function ChatPage() {
                   </div>
                 )}
                 <p className={`text-xs ${msg.role === 'user' ? 'text-primary-foreground/60' : 'text-muted-foreground'}`}>
-                  {timeAgo(msg.createdAt)}
+                  {timeAgo(msg.createdAt, t)}
                 </p>
               </div>
             </div>
@@ -312,7 +314,7 @@ export default function ChatPage() {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
+              placeholder={t('chat.placeholder')}
               className="flex-1"
               disabled={loading}
             />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Check, Trash2, X, Brain, Cpu, Key, Link, Loader2 } from 'lucide-react';
+import { useLocale } from '@/components/locale-provider';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,6 +29,7 @@ type ProviderItem = {
 };
 
 export default function AdminSettingsPage() {
+  const { t } = useLocale();
   const [providers, setProviders] = useState<ProviderItem[]>([]);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
@@ -98,7 +100,7 @@ export default function AdminSettingsPage() {
 
   if (!loaded) return (
     <div className="flex min-h-[400px] items-center justify-center gap-2 text-muted-foreground">
-      <Loader2 className="h-5 w-5 animate-spin" /> Loading...
+      <Loader2 className="h-5 w-5 animate-spin" /> {t('common.loading')}
     </div>
   );
 
@@ -108,12 +110,12 @@ export default function AdminSettingsPage() {
         <div>
           <div className="flex items-center gap-2">
             <Brain className="h-6 w-6 text-primary" />
-            <h1 className="text-3xl font-bold text-foreground">AI Providers</h1>
+            <h1 className="text-3xl font-bold text-foreground">{t('adminSettings.title')}</h1>
           </div>
-          <p className="mt-2 text-muted-foreground">Configure multiple AI providers and models.</p>
+          <p className="mt-2 text-muted-foreground">{t('adminSettings.subtitle')}</p>
         </div>
         <Button onClick={() => { setAdding(true); setFormType('custom'); setFormLabel(''); setFormBaseUrl(''); setFormModel(''); setFormKey(''); }}>
-          <Plus className="mr-2 h-4 w-4" /> Add Provider
+          <Plus className="mr-2 h-4 w-4" /> {t('adminSettings.addProvider')}
         </Button>
       </div>
 
@@ -126,18 +128,18 @@ export default function AdminSettingsPage() {
                   <CardTitle className="flex items-center gap-2">
                     <Cpu className="h-5 w-5 text-primary" />
                     {p.label}
-                    {p.isActive && <Badge>Active</Badge>}
+                    {p.isActive && <Badge>{t('common.active')}</Badge>}
                   </CardTitle>
                   <CardDescription>{p.type} &middot; {p.model}</CardDescription>
                 </div>
                 <div className="flex gap-2">
                   {!p.isActive && (
                     <Button variant="outline" size="sm" onClick={() => handleSetActive(p.id)}>
-                      <Check className="mr-1.5 h-3.5 w-3.5" /> Set Active
+                      <Check className="mr-1.5 h-3.5 w-3.5" /> {t('adminSettings.setActive')}
                     </Button>
                   )}
                   <Button variant="ghost" size="sm" onClick={() => handleRemove(p.id)}>
-                    <Trash2 className="mr-1.5 h-3.5 w-3.5" /> Remove
+                    <Trash2 className="mr-1.5 h-3.5 w-3.5" /> {t('adminSettings.remove')}
                   </Button>
                 </div>
               </div>
@@ -146,15 +148,15 @@ export default function AdminSettingsPage() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-1.5">
                   <Link className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="text-muted-foreground">Base URL:</span> {p.baseUrl}
+                  <span className="text-muted-foreground">{t('adminSettings.baseUrl')}</span> {p.baseUrl}
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Cpu className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="text-muted-foreground">Model:</span> {p.model}
+                  <span className="text-muted-foreground">{t('adminSettings.model')}</span> {p.model}
                 </div>
                 <div className="flex items-center gap-1.5">
                   <Key className="h-3.5 w-3.5 text-muted-foreground" />
-                  <span className="text-muted-foreground">API Key:</span> {p.apiKey ? '••••••••' : 'Not set'}
+                  <span className="text-muted-foreground">{t('adminSettings.apiKey')}</span> {p.apiKey ? '••••••••' : t('adminSettings.notSet')}
                 </div>
               </div>
             </CardContent>
@@ -164,7 +166,7 @@ export default function AdminSettingsPage() {
         {providers.length === 0 && (
           <div className="flex flex-col items-center gap-3 py-12 text-muted-foreground">
             <Cpu className="h-12 w-12" />
-            <p>No providers configured. Click &quot;Add Provider&quot; to get started.</p>
+            <p>{t('adminSettings.noProviders')}</p>
           </div>
         )}
       </div>
@@ -172,12 +174,12 @@ export default function AdminSettingsPage() {
       {adding && (
         <Card>
           <CardHeader>
-            <CardTitle>Add Provider</CardTitle>
-            <CardDescription>Select a preset or configure manually.</CardDescription>
+            <CardTitle>{t('adminSettings.addForm.title')}</CardTitle>
+            <CardDescription>{t('adminSettings.addForm.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label className="mb-2 block">Preset</Label>
+              <Label className="mb-2 block">{t('adminSettings.addForm.preset')}</Label>
               <div className="flex flex-wrap gap-2">
                 {PRESETS.map((p) => (
                   <Button
@@ -194,24 +196,24 @@ export default function AdminSettingsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="form-label">Label</Label>
-              <Input id="form-label" value={formLabel} onChange={(e) => setFormLabel(e.target.value)} placeholder="My OpenAI" />
+              <Label htmlFor="form-label">{t('adminSettings.addForm.label')}</Label>
+              <Input id="form-label" value={formLabel} onChange={(e) => setFormLabel(e.target.value)} placeholder={t('adminSettings.addForm.placeholder')} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="form-base-url">Base URL</Label>
+              <Label htmlFor="form-base-url">{t('adminSettings.addForm.baseUrl')}</Label>
               <Input id="form-base-url" value={formBaseUrl} onChange={(e) => setFormBaseUrl(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="form-model">Model</Label>
+              <Label htmlFor="form-model">{t('adminSettings.addForm.model')}</Label>
               <Input id="form-model" value={formModel} onChange={(e) => setFormModel(e.target.value)} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="form-key">API Key</Label>
-              <Input id="form-key" type="password" value={formKey} onChange={(e) => setFormKey(e.target.value)} placeholder={formType === 'custom' ? 'optional' : 'sk-...'} />
+              <Label htmlFor="form-key">{t('adminSettings.addForm.apiKey')}</Label>
+              <Input id="form-key" type="password" value={formKey} onChange={(e) => setFormKey(e.target.value)} placeholder={formType === 'custom' ? t('adminSettings.addForm.optional') : t('adminSettings.addForm.apiKeyPlaceholder')} />
             </div>
             <div className="flex gap-2">
-              <Button onClick={handleAddProvider}><Plus className="mr-1.5 h-4 w-4" /> Add</Button>
-              <Button variant="outline" onClick={() => setAdding(false)}><X className="mr-1.5 h-4 w-4" /> Cancel</Button>
+              <Button onClick={handleAddProvider}><Plus className="mr-1.5 h-4 w-4" /> {t('adminSettings.addForm.add')}</Button>
+              <Button variant="outline" onClick={() => setAdding(false)}><X className="mr-1.5 h-4 w-4" /> {t('adminSettings.addForm.cancel')}</Button>
             </div>
           </CardContent>
         </Card>
