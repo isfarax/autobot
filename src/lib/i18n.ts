@@ -1,4 +1,6 @@
-type TranslationMap = Record<string, string | TranslationMap>;
+export interface TranslationMap {
+  [key: string]: string | TranslationMap;
+}
 
 type InterpolationValues = Record<string, string | number>;
 

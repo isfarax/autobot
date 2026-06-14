@@ -164,7 +164,6 @@ export default function AgentPromptsPage() {
                 </Button>
               </div>
             </CardHeader>
-            </CardHeader>
             <CardContent className="flex flex-1 flex-col gap-4 overflow-y-auto">
               <div className="space-y-2">
                 <Label>{t('adminPrompts.name')}</Label>

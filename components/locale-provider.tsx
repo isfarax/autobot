@@ -9,7 +9,7 @@ import {
 } from 'react';
 import en from '@/i18n/en.json';
 import so from '@/i18n/so.json';
-import { t as translate } from '@/src/lib/i18n';
+import { t as translate, type TranslationMap } from '@/src/lib/i18n';
 
 type Locale = 'so' | 'en';
 
@@ -55,7 +55,7 @@ export function LocaleProvider({
 
   const t = useCallback(
     (key: string, values?: InterpolationValues): string => {
-      const data = translations[locale] as Record<string, unknown>;
+      const data = translations[locale] as TranslationMap;
       return translate(data, key, values);
     },
     [locale],
