@@ -1,21 +1,35 @@
-import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+async function migrate() {
+  const pool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
 
-async function main() {
-  const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
-  const sql = fs.readFileSync(path.join(__dirname, '../../drizzle/0001_curly_forgotten_one.sql'), 'utf-8');
-  const statements = sql.split('--> statement-breakpoint').map((s) => s.trim()).filter(Boolean);
+  const sql = await fs.readFile(
+    path.join(process.cwd(), 'drizzle', '0003_complete_schema.sql'),
+    'utf-8',
+  );
+
+  const statements = sql
+    .split(';')
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0 && !s.startsWith('--'));
+
   for (const stmt of statements) {
-    console.log(`Executing: ${stmt.slice(0, 80)}...`);
-    await pool.query(stmt);
+    try {
+      await pool.query(stmt);
+      console.log(`✓ Executed: ${stmt.slice(0, 80)}...`);
+    } catch (err) {
+      console.error(`✗ Failed: ${stmt.slice(0, 80)}...`);
+      console.error(err);
+    }
   }
-  console.log('Migration complete');
+
   await pool.end();
+  console.log('Migration complete.');
 }
 
-main().catch((err) => { console.error(err); process.exit(1); });
+migrate().catch(console.error);

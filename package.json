@@ -11,7 +11,8 @@
     "build": "next build",
     "start": "next start",
     "payload": "payload",
-    "seed": "payload run ./src/scripts/seed.ts"
+    "seed": "payload run ./src/scripts/seed.ts",
+    "migrate": "tsx ./src/scripts/migrate.ts"
   },
   "keywords": [],
   "author": "",

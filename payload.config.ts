@@ -15,11 +15,7 @@ export default buildConfig({
   admin: {},
   db: postgresAdapter({
     pool: {
-      host: 'localhost',
-      port: 5432,
-      database: 'autobot',
-      user: 'postgres',
-      password: 'somalia',
+      connectionString: process.env.DATABASE_URL || 'postgres://postgres:somalia@localhost:5432/autobot',
     },
   }),
   collections: [Users, Documents, Media],
