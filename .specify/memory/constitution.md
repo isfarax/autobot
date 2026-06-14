@@ -1,50 +1,33 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# autobot Constitution
+<!-- Constitution for the autobot project -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. User-Centered Design
+Every feature begins with understanding user needs; Interfaces must be intuitive and accessible; User feedback drives iterative improvements; Clear user value must be evident in all functionality
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Modular Architecture
+System components are loosely coupled and highly cohesive; Each module has a single, well-defined responsibility; Modules can be developed, tested, and deployed independently; Clear contracts define interactions between modules
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Test-First (NON-NEGOTIABLE)
+TDD mandatory: Tests written → Reviewed → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced; Minimum 80% code coverage required for all new code; Tests must validate user-facing behavior
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Data Security and Privacy
+All data at rest and in transit must be encrypted; Principle of least privilege applies to all system access; Personal data handling complies with relevant regulations; Regular security audits and vulnerability assessments required
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Observability and Performance
+Structured logging required for all system interactions; Key performance metrics monitored and alerted on; System designed for horizontal scalability; Performance budgets established for all user interactions
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Development Standards
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### Technology Choices
+Modern, maintained technologies preferred over legacy solutions; Open-source solutions evaluated before commercial alternatives; Technology decisions documented with rationale; Long-term maintainability prioritized over short-term expediency
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Code Quality
+Consistent code formatting enforced via automated tools; Code reviews required for all changes; Technical debt tracked and regularly addressed; Documentation kept current with code changes
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Constitution supersedes all other practices; Amendments require documentation, approval, and migration plan if needed; All PRs/reviews must verify compliance with principles; Complexity must be justified with clear user or business value; Use AGENTS.md for runtime development guidance
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-05-13 | **Last Amended**: 2026-05-13
+<!-- Version: 1.0.0 | Ratified: 2026-05-13 | Last Amended: 2026-05-13 -->
