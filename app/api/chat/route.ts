@@ -25,6 +25,8 @@ export async function POST(req: NextRequest) {
 
     const result = await agenticAnswer(message);
 
+    await addMessage(sessionId, 'assistant', result.answer, null, result.sources || null);
+
     return NextResponse.json({
       reply: result.answer,
       sources: result.sources || [],
