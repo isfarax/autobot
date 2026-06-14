@@ -1,7 +1,5 @@
--- Drop obsolete table from old schema
 DROP TABLE IF EXISTS "documents" CASCADE;
-
--- ai_providers
+-- >>
 CREATE TABLE IF NOT EXISTS "ai_providers" (
   "id" serial PRIMARY KEY NOT NULL,
   "type" text NOT NULL,
@@ -13,8 +11,7 @@ CREATE TABLE IF NOT EXISTS "ai_providers" (
   "created_at" timestamp DEFAULT now() NOT NULL,
   "updated_at" timestamp DEFAULT now() NOT NULL
 );
-
--- agent_prompts
+-- >>
 CREATE TABLE IF NOT EXISTS "agent_prompts" (
   "id" serial PRIMARY KEY NOT NULL,
   "name" text NOT NULL,
@@ -24,8 +21,7 @@ CREATE TABLE IF NOT EXISTS "agent_prompts" (
   "updated_at" timestamp DEFAULT now() NOT NULL,
   CONSTRAINT "agent_prompts_name_unique" UNIQUE("name")
 );
-
--- chatbot_config
+-- >>
 CREATE TABLE IF NOT EXISTS "chatbot_config" (
   "id" serial PRIMARY KEY NOT NULL,
   "key" text NOT NULL,
@@ -33,8 +29,7 @@ CREATE TABLE IF NOT EXISTS "chatbot_config" (
   "updated_at" timestamp DEFAULT now() NOT NULL,
   CONSTRAINT "chatbot_config_key_unique" UNIQUE("key")
 );
-
--- chat_sessions
+-- >>
 CREATE TABLE IF NOT EXISTS "chat_sessions" (
   "id" serial PRIMARY KEY NOT NULL,
   "session_id" text NOT NULL,
@@ -44,8 +39,7 @@ CREATE TABLE IF NOT EXISTS "chat_sessions" (
   "deleted" boolean DEFAULT false NOT NULL,
   CONSTRAINT "chat_sessions_session_id_unique" UNIQUE("session_id")
 );
-
--- chat_messages
+-- >>
 CREATE TABLE IF NOT EXISTS "chat_messages" (
   "id" serial PRIMARY KEY NOT NULL,
   "session_id" text NOT NULL,
@@ -55,8 +49,7 @@ CREATE TABLE IF NOT EXISTS "chat_messages" (
   "sources" jsonb,
   "created_at" timestamp DEFAULT now() NOT NULL
 );
-
--- rag_documents (replaces old 'documents' table)
+-- >>
 CREATE TABLE IF NOT EXISTS "rag_documents" (
   "id" serial PRIMARY KEY NOT NULL,
   "filename" text NOT NULL,
@@ -70,8 +63,7 @@ CREATE TABLE IF NOT EXISTS "rag_documents" (
   "included_in_rag" boolean DEFAULT true NOT NULL,
   "uploaded_at" timestamp DEFAULT now()
 );
-
--- chat_files
+-- >>
 CREATE TABLE IF NOT EXISTS "chat_files" (
   "id" serial PRIMARY KEY NOT NULL,
   "filename" text NOT NULL,
@@ -81,8 +73,7 @@ CREATE TABLE IF NOT EXISTS "chat_files" (
   "file_data" bytea NOT NULL,
   "created_at" timestamp DEFAULT now()
 );
-
--- query_logs
+-- >>
 CREATE TABLE IF NOT EXISTS "query_logs" (
   "id" serial PRIMARY KEY NOT NULL,
   "chat_session_id" integer NOT NULL,
@@ -91,8 +82,7 @@ CREATE TABLE IF NOT EXISTS "query_logs" (
   "retrieved_document_ids" text,
   "created_at" timestamp DEFAULT now() NOT NULL
 );
-
--- Foreign keys (only add if they don't exist)
+-- >>
 DO $$
 BEGIN
   IF NOT EXISTS (

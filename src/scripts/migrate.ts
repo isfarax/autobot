@@ -6,25 +6,28 @@ import path from 'path';
 async function migrate() {
   const pool = new pg.Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
   });
 
-  const sql = await fs.readFile(
+  const rawSql = await fs.readFile(
     path.join(process.cwd(), 'drizzle', '0003_complete_schema.sql'),
     'utf-8',
   );
 
-  const statements = sql
-    .split(';')
+  const statements = rawSql
+    .split('-- >>')
     .map((s) => s.trim())
-    .filter((s) => s.length > 0 && !s.startsWith('--'));
+    .filter((s) => s.length > 0);
 
   for (const stmt of statements) {
     try {
       await pool.query(stmt);
-      console.log(`✓ Executed: ${stmt.slice(0, 80)}...`);
-    } catch (err) {
-      console.error(`✗ Failed: ${stmt.slice(0, 80)}...`);
-      console.error(err);
+      const firstLine = stmt.split('\n')[0].trim().slice(0, 60);
+      console.log(`✓ ${firstLine}...`);
+    } catch (err: any) {
+      const firstLine = stmt.split('\n')[0].trim().slice(0, 60);
+      console.error(`✗ ${firstLine}...`);
+      console.error(err.message);
     }
   }
 
