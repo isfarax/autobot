@@ -69,7 +69,10 @@ function ElapsedTimer({ startTime }: { startTime: number }) {
 export default function ChatPage() {
   const { t } = useLocale();
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeId, setActiveId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') return localStorage.getItem('chatActiveId');
+    return null;
+  });
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -79,7 +82,14 @@ export default function ChatPage() {
   const [attachments, setAttachments] = useState<{ name: string; url: string }[]>([]);
   const [now, setNow] = useState(Date.now());
 
-  useEffect(() => { loadConversations(); }, []);
+  useEffect(() => { restoreOrLoadConversations(); }, []);
+  useEffect(() => {
+    if (activeId) {
+      localStorage.setItem('chatActiveId', activeId);
+    } else {
+      localStorage.removeItem('chatActiveId');
+    }
+  }, [activeId]);
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages, loading]);
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 5000);
@@ -91,6 +101,24 @@ export default function ChatPage() {
       const res = await fetch('/api/chat');
       const data = await res.json();
       setConversations(data.conversations || []);
+    } catch { /* ignore */ }
+  }
+
+  async function restoreOrLoadConversations() {
+    try {
+      const res = await fetch('/api/chat');
+      const data = await res.json();
+      const convos = data.conversations || [];
+      setConversations(convos);
+
+      if (convos.length > 0) {
+        const storedId = localStorage.getItem('chatActiveId');
+        const target = storedId && convos.some((c: Conversation) => c.sessionId === storedId)
+          ? storedId
+          : convos[0].sessionId;
+        setActiveId(target);
+        await loadMessages(target);
+      }
     } catch { /* ignore */ }
   }
 
